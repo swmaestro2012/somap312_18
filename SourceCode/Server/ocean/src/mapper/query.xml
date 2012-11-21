@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QueryMapper">
+	<select id="selectMember" parameterType="dto.MemberDTO" resultType="dto.MemberDTO">
+		select * from member where token=#{token} 
+	</select>
+	<insert id="insertMember" parameterType="dto.MemberDTO">
+		INSERT INTO member(`TOKEN`, `UPDATE`, `POINT`) VALUES (#{token}, NOW(), 0)
+	</insert>
+	<update id="updateMember" parameterType="dto.MemberDTO">
+		UPDATE `ocean`.`member` SET `POINT`= #{point}, `UPDATE`=NOW() WHERE `ID`=#{id};
+	</update>
+	<select id="selectObject" parameterType="dto.MemberDTO" resultType="dto.ObjectDTO">
+		select * from object where own=#{id} 
+	</select>
+	<insert id="insertObject" parameterType="dto.ObjectDTO">
+		INSERT INTO `ocean`.`object` (`OWN`, `TYPE`, `STATE`, `POS_X`, `POX_Y`) VALUES (#{own}, #{type}, #{state}, #{pos_x}, #{pos_y});
+	</insert>
+	<update id="updateObject" parameterType="dto.ObjectDTO">
+		UPDATE `ocean`.`object` SET `OWN`=#{own}, `TYPE`=#{type}, `STATE`=#{state}, `POS_X`=#{pos_x}, `POX_Y`=#{pos_y} WHERE `ID`=#{id};
+	</update>
+	<select id="selectEgg" parameterType="dto.MemberDTO" resultType="dto.EggDTO">
+		select * from egg where own=#{id} 
+	</select>
+	<insert id="insertEgg" parameterType="dto.EggDTO">
+		INSERT INTO `ocean`.`egg` (`OWN`, `BODY`, `FIN`, `LIP`, `PATTEN`, `COLOR1`, `COLOR2`, `COLOR3`, `POS_X`, `POS_Y`, `UPDATE`, `TAG_FROM`, `TAG_TEXT`) VALUES (#{own}, #{body}, #{fin}, #{lip}, #{patten}, #{color1}, #{color2}, #{color3}, #{pos_x}, #{pos_y}, #{update}, #{tag_from}, #{tag_text});
+	</insert>
+	<update id="updateEgg" parameterType="dto.EggDTO">
+		UPDATE `ocean`.`object` SET `OWN`=#{own}, `BODY`=#{body}, `FIN`=#{fin}, `LIP`=#{lip}, `PATTEN`=#{patten}, `COLOR1`=#{color1}, `COLOR2`=#{color2}, `COLOR3`=#{color3}, `POS_X`=#{pos_x}, `POS_Y`=#{pos_y}, `UPDATE`=#{update}, `TAG_FROM`=#{tag_from}, `TAG_TEXT`=#{tag_text} WHERE `ID`=#{id};
+	</update>
+	
+	
+	
+</mapper>
